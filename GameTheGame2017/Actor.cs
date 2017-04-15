@@ -8,34 +8,31 @@ using OpenTK.Graphics;
 
 namespace GameTheGame2017 {
     class Actor {
-        public Actor(int posX, int posY, char symbol) {
-            this.posX = posX;
-            this.posY = posY;
+        public Actor(int[] pos, char symbol) {
+            Pos = pos;
             tile = new Tile(symbol, Color4.White);
         }
 
-        public Actor(int posX, int posY, char symbol, Color4 color) {
-            this.posX = posX;
-            this.posY = posY;
+        public Actor(int[] pos, char symbol, Color4 color) {
+            Pos = pos;
             tile = new Tile(symbol, color);
         }
 
-        public int PosX {
-            get => posX;
-            set => posX = value;
-        }
-        public int PosY {
-            get => posY;
-            set => posY = value;
+        public int[] Pos { get => pos; set => pos = value; }
+
+        public Tile Tile { get => tile; }
+
+        public bool Move(int[] newPos) {
+            if(Game.Map.GetTile(newPos).IsBLocking) {
+                return false;
+            }
+
+            pos = newPos;
+            return true;
         }
 
-        public Tile Tile {
-            get => tile;
-        }
 
-
-        private int posX;
-        private int posY;
+        private int[] pos;
         private Tile tile;
     }
 }

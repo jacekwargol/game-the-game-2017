@@ -6,19 +6,19 @@ using OpenTK.Graphics;
 
 namespace GameTheGame2017 {
     class Map {
-        public Map(int width, int height, int wallPercentage = 50) {
+        public Map(int width, int height, int wallsPercentage = 50) {
             this.width = width;
             this.height = height;
-            this.wallsPercentage = wallPercentage;
+            this.wallsPercentage = wallsPercentage;
 
             tiles = new Tile[width, height];
             GenerateMap();
         }
 
-        public Tile GetTile(int x, int y) => tiles[x, y];
-        public void SetTile(char ch, int x, int y) => tiles[x, y] = new Tile(ch);
-        public void SetTile(char ch, Color4 color, int x, int y)
-            => tiles[x, y] = new Tile(ch, color);
+        public Tile GetTile(int[] pos) => tiles[pos[0], pos[1]];
+        public void SetTile(char ch, int[] pos) => tiles[pos[0], pos[1]] = new Tile(ch, Color4.White);
+        public void SetTile(char ch, int[] pos, Color4 color, bool isBlocking)
+            => tiles[pos[0], pos[1]] = new Tile(ch, color, true);
 
         public int FillPercentage { get; set; }
 
@@ -50,11 +50,11 @@ namespace GameTheGame2017 {
                 for(int y = 0; y < width; y++) {
                     if(x == 0 || x == width - 1 || y == 0 || y == height - 1) {
                         tiles[x, y] = new Tile(tilesType["wall"].Symbol,
-                            tilesType["wall"].Color);
+                            tilesType["wall"].Color, true);
                     }
                     else {
                         tiles[x, y] = new Tile(tilesType["floor"].Symbol,
-                            tilesType["floor"].Color);
+                            tilesType["floor"].Color, false);
                     }
                 }
             }
@@ -70,5 +70,7 @@ namespace GameTheGame2017 {
             { "wall", new Tile('#', Color4.DarkBlue) },
             { "floor", new Tile('.', Color4.White) },
         };
+
+        private enum blockingTiles { wall } 
     }
 }
