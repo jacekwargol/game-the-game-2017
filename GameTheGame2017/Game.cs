@@ -22,16 +22,16 @@ namespace GameTheGame2017 {
         private static void KeyboardMovement() {
             switch(GameWindow.window.GetKey()) {
                 case Key.Up:
-                    player.Move(new int[] { player.Pos[0], player.Pos[1] - 1 });
+                    player.Move(new int[] { player.Pos[0] - 1, player.Pos[1] });
                     break;
                 case Key.Down:
-                    player.Move(new int[] { player.Pos[0], player.Pos[1] + 1 });
+                    player.Move(new int[] { player.Pos[0] + 1, player.Pos[1] });
                     break;
                 case Key.Left:
-                    player.Move(new int[] { player.Pos[0] - 1, player.Pos[1]});
+                    player.Move(new int[] { player.Pos[0], player.Pos[1] - 1 });
                     break;
                 case Key.Right:
-                    player.Move(new int[] { player.Pos[0] + 1, player.Pos[1] });
+                    player.Move(new int[] { player.Pos[0], player.Pos[1] + 1 });
                     break;
             }
         }

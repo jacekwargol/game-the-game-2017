@@ -22,6 +22,22 @@ namespace GameTheGame2017 {
 
         public Tile Tile { get => tile; }
 
+        public int Health {
+            get => health;
+            set {
+                health = value;
+                if(health <= 0) {
+                    Kill();
+                }
+            }
+        }
+
+        public void Kill() {
+            isDead = true;
+        }
+
+        public bool IsDead { get; }
+
         public bool Move(int[] newPos) {
             if(Game.Map.GetTile(newPos).IsBLocking) {
                 return false;
@@ -32,7 +48,10 @@ namespace GameTheGame2017 {
         }
 
 
+
         private int[] pos;
         private Tile tile;
+        private int health;
+        private bool isDead = false;
     }
 }

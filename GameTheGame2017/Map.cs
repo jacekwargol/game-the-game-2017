@@ -49,12 +49,10 @@ namespace GameTheGame2017 {
             for(int x = 0; x < width; x++) {
                 for(int y = 0; y < width; y++) {
                     if(x == 0 || x == width - 1 || y == 0 || y == height - 1) {
-                        tiles[x, y] = new Tile(tilesType["wall"].Symbol,
-                            tilesType["wall"].Color, true);
+                        tiles[x, y] = tilesType["wall"];
                     }
                     else {
-                        tiles[x, y] = new Tile(tilesType["floor"].Symbol,
-                            tilesType["floor"].Color, false);
+                        tiles[x, y] = tilesType["floor"];
                     }
                 }
             }
@@ -67,10 +65,10 @@ namespace GameTheGame2017 {
         private int wallsPercentage;
 
         private Dictionary<string, Tile> tilesType = new Dictionary<string, Tile>() {
-            { "wall", new Tile('#', Color4.DarkBlue) },
-            { "floor", new Tile('.', Color4.White) },
+            { "wall", new Tile('#', Color4.DarkBlue, true) },
+            { "floor", new Tile('.', Color4.White, false) },
         };
 
-        private enum blockingTiles { wall } 
+        private enum BlockingTiles { wall } 
     }
 }

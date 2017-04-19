@@ -7,7 +7,7 @@ using OpenTK.Graphics;
 
 
 namespace GameTheGame2017 {
-    class Tile {
+    struct Tile {
         public Tile(char symbol, Color4 color, bool isBlocking = true) {
             Symbol = symbol;
             Color = color;
