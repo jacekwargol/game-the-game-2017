@@ -9,10 +9,30 @@ using OpenTK.Graphics;
 namespace GameTheGame2017 {
     class Game {
         public static void Main() {
+
+            Random rng = new Random();
+            
+            for(int i = 0; i < 10; i++) {
+                actors.Push(new Andrzej(new int[] { rng.Next(1, 49), rng.Next(1, 49) }, '%', Color4.Red));
+            }
+
             while((GameWindow.window.GetKey() != Key.Escape) && GameWindow.window.WindowUpdate()) {
                 map.PrintMap();
-                GameWindow.window.Write(player.Pos[0], player.Pos[1], player.Tile.Symbol, player.Tile.Color);
+
+                player.Draw();
                 KeyboardMovement();
+
+                foreach(var actor in actors) {
+                    actor.Draw();
+                    if(player.DidMove) {
+                        if(actor is IMovable) {
+                            ((IMovable)actor).Move();
+                        }
+
+                    }
+                }
+
+                player.DidMove = false;
             }
         }
 
@@ -36,7 +56,8 @@ namespace GameTheGame2017 {
             }
         }
 
-        private static Actor player = new Actor(new int[] { 1, 1 }, 10, '@', Color4.Yellow);
+        private static Player player = new Player(new int[] { 1, 1 }, '@', Color4.Yellow);
         private static Map map = new Map(50, 50, 30);
+        private static Stack<Actor> actors = new Stack<Actor>();
     }
 }
