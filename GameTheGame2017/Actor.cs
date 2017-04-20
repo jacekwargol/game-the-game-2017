@@ -8,14 +8,16 @@ using OpenTK.Graphics;
 
 namespace GameTheGame2017 {
     class Actor {
-        public Actor(int[] pos, char symbol) {
+        public Actor(int[] pos, int damage, char symbol) {
             Pos = pos;
-            tile = new Tile(symbol, Color4.White);
+            Damage = damage;
+            tile = new Tile(symbol, Color4.White, Tile.Types.ACTOR);
         }
 
-        public Actor(int[] pos, char symbol, Color4 color) {
+        public Actor(int[] pos, int damage, char symbol, Color4 color) {
             Pos = pos;
-            tile = new Tile(symbol, color);
+            Damage = damage;
+            tile = new Tile(symbol, color, Tile.Types.ACTOR);
         }
 
         public int[] Pos { get => pos; set => pos = value; }
@@ -32,6 +34,9 @@ namespace GameTheGame2017 {
             }
         }
 
+        public int Damage { get; set; }
+
+
         public void Kill() {
             isDead = true;
         }
@@ -39,7 +44,9 @@ namespace GameTheGame2017 {
         public bool IsDead { get; }
 
         public bool Move(int[] newPos) {
-            if(Game.Map.GetTile(newPos).IsBLocking) {
+            Tile target = Game.Map.GetTile(newPos);
+
+            if(target.IsBLocking) {
                 return false;
             }
 
@@ -47,6 +54,13 @@ namespace GameTheGame2017 {
             return true;
         }
 
+        public void TakeDamage(int amount) {
+            Health -= amount;
+        }
+
+        public void DealDamage(Actor actor) {
+            actor.TakeDamage(Damage);
+        }
 
 
         private int[] pos;

@@ -16,9 +16,11 @@ namespace GameTheGame2017 {
         }
 
         public Tile GetTile(int[] pos) => tiles[pos[0], pos[1]];
-        public void SetTile(char ch, int[] pos) => tiles[pos[0], pos[1]] = new Tile(ch, Color4.White);
-        public void SetTile(char ch, int[] pos, Color4 color, bool isBlocking)
-            => tiles[pos[0], pos[1]] = new Tile(ch, color, true);
+        public void SetTile(char ch, int[] pos, Tile.Types type)
+            => tiles[pos[0], pos[1]] = new Tile(ch, Color4.White, type);
+
+        public void SetTile(char ch, int[] pos, Color4 color, Tile.Types type)
+            => tiles[pos[0], pos[1]] = new Tile(ch, color, type);
 
         public int FillPercentage { get; set; }
 
@@ -65,8 +67,8 @@ namespace GameTheGame2017 {
         private int wallsPercentage;
 
         private Dictionary<string, Tile> tilesType = new Dictionary<string, Tile>() {
-            { "wall", new Tile('#', Color4.DarkBlue, true) },
-            { "floor", new Tile('.', Color4.White, false) },
+            { "wall", new Tile('#', Color4.DarkBlue, Tile.Types.WALL) },
+            { "floor", new Tile('.', Color4.White, Tile.Types.FLOOR) },
         };
 
         private enum BlockingTiles { wall } 

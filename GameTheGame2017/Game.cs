@@ -36,7 +36,7 @@ namespace GameTheGame2017 {
             }
         }
 
-        private static Actor player = new Actor(new int[] { 1, 1 }, '@', Color4.YellowGreen);
+        private static Actor player = new Actor(new int[] { 1, 1 }, 10, '@', Color4.Yellow);
         private static Map map = new Map(50, 50, 30);
     }
 }
