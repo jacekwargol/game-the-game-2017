@@ -7,23 +7,11 @@ using OpenTK.Graphics;
 
 
 namespace GameTheGame2017 {
-    class Actor {
-        public Actor(int[] pos, char symbol) {
-            Pos = pos;
-            tile = new Tile(symbol, Color4.White, Tile.Types.ACTOR);
-        }
+    class Actor : GameObject {
+        public Actor(int[] pos, char symbol) : base(pos, symbol) { }
 
-        public Actor(int[] pos,  char symbol, Color4 color) {
-            Pos = pos;
-            tile = new Tile(symbol, color, Tile.Types.ACTOR);
-        }
+        public Actor(int[] pos,  char symbol, Color4 color) : base(pos, symbol, color) { }
 
-        public int[] Pos { get => pos; set => pos = value; }
-        public Tile Tile { get => tile; }
-
-        public void Draw() {
-            GameWindow.window.Write(pos[0], pos[1], Tile.Symbol, Tile.Color);
-        }
 
         //public int Health {
         //    get => health;
@@ -53,7 +41,5 @@ namespace GameTheGame2017 {
         //}
 
 
-        protected int[] pos;
-        protected Tile tile;
     }
 }

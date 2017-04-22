@@ -10,7 +10,7 @@ namespace GameTheGame2017 {
     class Game {
         public static void Main() {
 
-            Random rng = new Random();
+            var rng = new Random();
             
             for(int i = 0; i < 10; i++) {
                 actors.Push(new Andrzej(new int[] { rng.Next(1, 49), rng.Next(1, 49) }, '%', Color4.Red));
@@ -25,10 +25,7 @@ namespace GameTheGame2017 {
                 foreach(var actor in actors) {
                     actor.Draw();
                     if(player.DidMove) {
-                        if(actor is IMovable) {
-                            ((IMovable)actor).Move();
-                        }
-
+                        (actor as IMovable)?.Move();
                     }
                 }
 
