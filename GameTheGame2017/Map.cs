@@ -34,22 +34,13 @@ namespace GameTheGame2017 {
 
 
         private void GenerateMap() {
-            Random rng = new Random();
-            int minRoomLength = 10;
-            int maxRoomLength = 20;
-
-            int noRooms = rng.Next(5, 10);
-
-            int roomWidth = rng.Next(minRoomLength, maxRoomLength);
-            int roomHeight = rng.Next(minRoomLength, maxRoomLength);
-
             GenerateRoom(0, 0, width, height);
         }
 
         private void GenerateRoom(int posX, int posY, int width, int height) {
             Tile[,] room = new Tile[width, height];
             for(int x = 0; x < width; x++) {
-                for(int y = 0; y < width; y++) {
+                for(int y = 0; y < height; y++) {
                     if(x == 0 || x == width - 1 || y == 0 || y == height - 1) {
                         tiles[x, y] = tilesType["wall"];
                     }

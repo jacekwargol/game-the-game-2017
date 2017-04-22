@@ -4,7 +4,7 @@ using OpenTK.Input;
 
 
 namespace GameTheGame2017 {
-    class GameWindow {
+    static class GameWindow {
         public static int Width { get; set; } = 120;
         public static int Height { get; set; } = 60;
 

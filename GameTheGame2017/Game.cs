@@ -57,7 +57,7 @@ namespace GameTheGame2017 {
         }
 
         private static Player player = new Player(new int[] { 1, 1 }, '@', Color4.Yellow);
-        private static Map map = new Map(50, 50, 30);
+        private static Map map = new Map(GameWindow.Height, GameWindow.Width, 30);
         private static Stack<Actor> actors = new Stack<Actor>();
     }
 }

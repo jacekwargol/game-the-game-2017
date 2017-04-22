@@ -51,8 +51,8 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\Andrzej.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameWindow.cs" />
     <Compile Include="Components\IMovable.cs" />
+    <Compile Include="GameWindow.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Actors\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
