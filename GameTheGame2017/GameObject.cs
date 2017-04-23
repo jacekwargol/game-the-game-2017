@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameTheGame2017.Utils;
 using OpenTK.Graphics;
-
 
 namespace GameTheGame2017
 {
     class GameObject {
-        public GameObject(int[] pos, char symbol) {
+        public GameObject(Vector2 pos, char symbol) {
             Pos = pos;
-            tile = new Tile(symbol, Color4.White, Tile.Types.ACTOR);
+            tile = new Tile(symbol, Color4.White, Tile.Types.Actor);
         }
 
-        public GameObject(int[] pos, char symbol, Color4 color) {
+        public GameObject(Vector2 pos, char symbol, Color4 color) {
             Pos = pos;
-            tile = new Tile(symbol, color, Tile.Types.ACTOR);
+            tile = new Tile(symbol, color, Tile.Types.Actor);
         }
 
-        public int[] Pos { get; set; }
+        public Vector2 Pos { get; set; }
 
         public Tile Tile => tile;
 
-        public void Draw() => GameWindow.window.Write(Pos[0], Pos[1], Tile.Symbol, Tile.Color);
+        public void Draw() => GameWindow.Window.Write(Pos.X, Pos.Y, Tile.Symbol, Tile.Color);
 
 
         protected Tile tile;

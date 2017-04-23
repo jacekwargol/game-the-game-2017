@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameTheGame2017.Utils;
 using OpenTK.Graphics;
-
-
 
 namespace GameTheGame2017 {
     class Map {
@@ -15,9 +13,9 @@ namespace GameTheGame2017 {
             GenerateMap();
         }
 
-        public Tile GetTile(int[] pos) => tiles[pos[0], pos[1]];
-        public void SetTile(char ch, int[] pos, Tile.Types type)
-            => tiles[pos[0], pos[1]] = new Tile(ch, Color4.White, type);
+        public Tile GetTile(Vector2 pos) => tiles[pos.X, pos.Y];
+        public void SetTile(char ch, Vector2 pos, Tile.Types type)
+            => tiles[pos.X, pos.Y] = new Tile(ch, Color4.White, type);
 
         public void SetTile(char ch, int[] pos, Color4 color, Tile.Types type)
             => tiles[pos[0], pos[1]] = new Tile(ch, color, type);
@@ -27,17 +25,17 @@ namespace GameTheGame2017 {
         public void PrintMap() {
             for(int x = 0; x < width; x++) {
                 for(int y = 0; y < height; y++) {
-                    GameWindow.window.Write(x, y, tiles[x, y].Symbol, tiles[x, y].Color);
+                    GameWindow.Window.Write(x, y, tiles[x, y].Symbol, tiles[x, y].Color);
                 }
             }
         }
 
 
         private void GenerateMap() {
-            GenerateRoom(0, 0, width, height);
+            GenerateRoom(new Vector2(), width, height);
         }
 
-        private void GenerateRoom(int posX, int posY, int width, int height) {
+        private void GenerateRoom(Vector2 pos, int width, int height) {
             Tile[,] room = new Tile[width, height];
             for(int x = 0; x < width; x++) {
                 for(int y = 0; y < height; y++) {
@@ -57,11 +55,11 @@ namespace GameTheGame2017 {
         private int height;
         private int wallsPercentage;
 
-        private Dictionary<string, Tile> tilesType = new Dictionary<string, Tile>() {
-            { "wall", new Tile('#', Color4.DarkBlue, Tile.Types.WALL) },
-            { "floor", new Tile('.', Color4.White, Tile.Types.FLOOR) },
+        private Dictionary<string, Tile> tilesType = new Dictionary<string, Tile> {
+            { "wall", new Tile('#', Color4.DarkBlue, Tile.Types.Wall) },
+            { "floor", new Tile('.', Color4.White, Tile.Types.Floor) }
         };
 
-        private enum BlockingTiles { wall } 
+        private enum BlockingTiles { Wall } 
     }
 }

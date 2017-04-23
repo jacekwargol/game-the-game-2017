@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GameTheGame2017.Utils;
 using OpenTK.Graphics;
 
-
 namespace GameTheGame2017 {
-    // While Player is of course Movable Actor, due to keyboard control it handles moves differently
-    // (i.e. Move method takes a newPos parameter, while in other Actors newPos will be calculated inside
-    // Move() itself), so it won't implement IMovable Interface
-
     class Player : Actor {
-        public Player(int[] pos, char symbol) : base(pos, symbol) { DidMove = false; }
+        public Player(Vector2 pos, char symbol) : base(pos, symbol) { DidMove = false; }
 
-        public Player(int[] pos, char symbol, Color4 color) : base(pos, symbol, color) { DidMove = false; }
+        public Player(Vector2 pos, char symbol, Color4 color) : base(pos, symbol, color) { DidMove = false; }
 
         public bool DidMove { get; set; }
 
-        public bool Move(int[] newPos) {
+        public bool Move(Vector2 newPos) {
+            DidMove = true;
             Tile target = Game.Map.GetTile(newPos);
 
             if(target.IsBLocking) {
                 return false;
             }
 
-            pos = newPos;
-            DidMove = true;
+            foreach (var gameObject in Game.GameObjects) {
+                if (gameObject.Tile.IsBLocking && gameObject.Pos == newPos) {
+                    return false;
+                }
+            }
+
+            Pos = newPos;
             return true;
         }
     }

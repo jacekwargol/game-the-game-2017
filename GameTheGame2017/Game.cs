@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Input;
+using GameTheGame2017.Utils;
 using OpenTK.Graphics;
+using OpenTK.Input;
 
 namespace GameTheGame2017 {
     class Game {
@@ -12,49 +10,47 @@ namespace GameTheGame2017 {
 
             var rng = new Random();
             
-            for(int i = 0; i < 10; i++) {
-                actors.Push(new Andrzej(new int[] { rng.Next(1, 49), rng.Next(1, 49) }, '%', Color4.Red));
+            for(int i = 0; i < 1; i++) {
+                GameObjects.Add(new Andrzej(new Vector2(rng.Next(1, 49), rng.Next(1, 49)), '%', Color4.Red));
             }
 
-            while((GameWindow.window.GetKey() != Key.Escape) && GameWindow.window.WindowUpdate()) {
-                map.PrintMap();
+            while((GameWindow.Window.GetKey() != Key.Escape) && GameWindow.Window.WindowUpdate()) {
+                Map.PrintMap();
 
-                player.Draw();
+                Player.Draw();
                 KeyboardMovement();
 
-                foreach(var actor in actors) {
-                    actor.Draw();
-                    if(player.DidMove) {
-                        (actor as IMovable)?.Move();
+                foreach(var gameObject in GameObjects) {
+                    gameObject.Draw();
+                    if(Player.DidMove) {
+                        (gameObject as IMovable)?.Move(Player);
                     }
                 }
 
-                player.DidMove = false;
+                Player.DidMove = false;
             }
         }
 
-        public static Map Map { get => map; }
+        public static Map Map { get; } = new Map(GameWindow.Height, GameWindow.Width, 30);
+        public static List<GameObject> GameObjects { get; } = new List<GameObject>();
+        public static Player Player { get; } = new Player(new Vector2(1, 1), '@', Color4.Yellow);
 
 
         private static void KeyboardMovement() {
-            switch(GameWindow.window.GetKey()) {
+            switch(GameWindow.Window.GetKey()) {
                 case Key.Up:
-                    player.Move(new int[] { player.Pos[0] - 1, player.Pos[1] });
+                    Player.Move(new Vector2(Player.Pos.X - 1, Player.Pos.Y));
                     break;
                 case Key.Down:
-                    player.Move(new int[] { player.Pos[0] + 1, player.Pos[1] });
+                    Player.Move(new Vector2(Player.Pos.X + 1, Player.Pos.Y));
                     break;
                 case Key.Left:
-                    player.Move(new int[] { player.Pos[0], player.Pos[1] - 1 });
+                    Player.Move(new Vector2(Player.Pos.X, Player.Pos.Y - 1));
                     break;
                 case Key.Right:
-                    player.Move(new int[] { player.Pos[0], player.Pos[1] + 1 });
+                    Player.Move(new Vector2(Player.Pos.X, Player.Pos.Y + 1));
                     break;
             }
         }
-
-        private static Player player = new Player(new int[] { 1, 1 }, '@', Color4.Yellow);
-        private static Map map = new Map(GameWindow.Height, GameWindow.Width, 30);
-        private static Stack<Actor> actors = new Stack<Actor>();
     }
 }

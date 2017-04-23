@@ -1,28 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GameTheGame2017.Utils;
 using OpenTK.Graphics;
-
 
 namespace GameTheGame2017 {
     class Andrzej : Actor, IMovable {
-        public Andrzej(int[] pos, char symbol) : base(pos, symbol) { }
+        public Andrzej(Vector2 pos, char symbol) : base(pos, symbol) { }
 
-        public Andrzej(int[] pos, char symbol, Color4 color) : base(pos, symbol, color) { }
+        public Andrzej(Vector2 pos, char symbol, Color4 color) : base(pos, symbol, color) { }
 
-        public void Move() {
-            int[] newPos = new int[2];
-            Random rng = new Random();
-            newPos[0] = pos[0] + rng.Next(-1, 2);
-            newPos[1] = pos[1] + rng.Next(-1, 2);
-            while(Game.Map.GetTile(newPos).IsBLocking) {
-                newPos[0] = pos[0] + rng.Next(-1, 2);
-                newPos[1] = pos[1] + rng.Next(-1, 2);
+        public void Move(GameObject target) {
+            var newPos = Pos;
+            var minDist = newPos.DistanceTaxiTo(target.Pos);
+
+            for (int i = 0; i < 4; i++) {
+                var currDist = Vector2.DistanceTaxiBetween(Pos + Vector2.Directions[i], target.Pos);
+                if (!(currDist < minDist) || IsCollision(Pos + Vector2.Directions[i])) {
+                    continue;
+                }
+
+                minDist = currDist;
+                newPos = Pos + Vector2.Directions[i];
             }
 
-            pos = newPos;
+            Pos = newPos;
+        }
+
+
+        private static bool IsCollision(Vector2 pos) {
+            if (Game.Map.GetTile(pos).IsBLocking || Game.Player.Pos == pos) {
+                return true;
+            }
+
+            foreach (var gameObject in Game.GameObjects) {
+                if (gameObject.Pos == pos) {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
