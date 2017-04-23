@@ -1,11 +1,19 @@
-﻿using GameTheGame2017.Utils;
+﻿using System.Collections.Generic;
+using GameTheGame2017.Components;
+using GameTheGame2017.Utils;
 using OpenTK.Graphics;
 
 namespace GameTheGame2017 {
     class Player : Actor {
-        public Player(Vector2 pos, char symbol) : base(pos, symbol) { DidMove = false; }
+        public LivingComponent LivingComponent { get; set; }
 
-        public Player(Vector2 pos, char symbol, Color4 color) : base(pos, symbol, color) { DidMove = false; }
+        public Player(Vector2 pos, char symbol, int health = 10) : base(pos, symbol) {
+            LivingComponent = new LivingComponent(health);
+        }
+
+        public Player(Vector2 pos, char symbol, Color4 color, int health = 10) : base(pos, symbol, color) {
+            LivingComponent = new LivingComponent(health);
+        }
 
         public bool DidMove { get; set; }
 

@@ -27,13 +27,15 @@ namespace GameTheGame2017 {
                     }
                 }
 
+                GameWindow.Window.Write(50, 50, Player.LivingComponent.Health.ToString(), Color4.Crimson);
+
                 Player.DidMove = false;
             }
         }
 
         public static Map Map { get; } = new Map(GameWindow.Height, GameWindow.Width, 30);
         public static List<GameObject> GameObjects { get; } = new List<GameObject>();
-        public static Player Player { get; } = new Player(new Vector2(1, 1), '@', Color4.Yellow);
+        public static Player Player { get; } = new Player(new Vector2(1, 1), '@', Color4.Yellow, 10);
 
 
         private static void KeyboardMovement() {
